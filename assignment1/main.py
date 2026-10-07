@@ -24,8 +24,13 @@ DB_CONFIG = {
 }
 
 def get_connection():
-  return
-psycopg2.connect(**DB_CONFIG)
+  return psycopg2.connect(
+    host=os.getenv("DB_HOST","localhost"),
+    database=os.getenv("DB_NAME","prediction_feedback"),
+    user=os.getenv("DB_USER","postgres"),
+    password=os.getenv("DB_PASSWORD", "feedback123"),
+    port=int(os.getenv("DB_PORT","5432"))
+  )
 
 def initialize_database():
   conn = get_connection()
